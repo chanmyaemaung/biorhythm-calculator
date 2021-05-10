@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { useLocalStorage } from './hooks';
+import {
+	IonApp,
+	IonContent,
+	IonDatetime,
+	IonHeader,
+	IonItem,
+	IonLabel,
+	IonTitle,
+	IonToolbar,
+} from '@ionic/react';
+import BiorhythmCard from './components/BiorhythmCard';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+	const [birthDate, setBirthDate] = useLocalStorage('birthDte', '');
+	const [targetDate, setTargetDate] = useState(new Date().toISOString());
+
+	return (
+		<IonApp>
+			<IonHeader>
+				<IonToolbar>
+					<IonTitle>Biorhythms</IonTitle>
+				</IonToolbar>
+			</IonHeader>
+			<IonContent className='ion-padding'>
+				{birthDate && (
+					<BiorhythmCard birthDate={birthDate} targetDate={targetDate} />
+				)}
+				<IonItem>
+					<IonLabel position='fixed'>Date of Birth:</IonLabel>
+					<IonDatetime
+						value={birthDate}
+						displayFormat='DD MMM, YYYY'
+						onIonChange={(e) => setBirthDate(e.detail.value)}
+					/>
+				</IonItem>
+				<IonItem>
+					<IonLabel position='fixed'>Target Date: </IonLabel>
+					<IonDatetime
+						value={targetDate}
+						displayFormat='DD MMM, YYYY'
+						onIonChange={(e) => setTargetDate(e.detail.value)}
+					/>
+				</IonItem>
+				<small
+					style={{ textAlign: 'center', display: 'block', margin: '10px' }}
+				>
+					Developed by PJK-DEV. {new Date().getFullYear()}
+				</small>
+			</IonContent>
+		</IonApp>
+	);
 }
-
-export default App;
