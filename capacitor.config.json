@@ -1,0 +1,16 @@
+{
+	"appId": "com.pjk.biorhythms",
+	"appName": "Biorhythms",
+	"bundledWebRuntime": false,
+	"npmClient": "yarn",
+	"webDir": "build",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	},
+	"cordova": {},
+	"server": {
+		"url": "http://10.81.2.30:3002"
+	}
+}
